@@ -43,7 +43,7 @@ docker-compose -f .\docker-compose.test.yml up --remove-orphans --exit-code-from
 
 ### Unit test report
 
-![unit test](img/unitTest.png)
+![unit test](img/unitTest.PNG)
 
 ### Code Coverage report
 
