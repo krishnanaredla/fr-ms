@@ -17,11 +17,22 @@
 }
 ```
 
-API return 422 error if input schema is not expected as above
+API will return 422 error if input schema is not expected as above
 
 ## Local Deploy
 
 Use docker-compose or Dockerfile to run the service.Docker-compose also comprises of the postgres service
+
+### Configuration
+
+[Pydantic settings](https://pydantic-docs.helpmanual.io/usage/settings/) are used for the settings management and settings are saved in a .env file placed under config folder
+
+Variables can also be passed under environment in docker-compose or kubernetes yaml files
+
+```console
+environment:
+      - ENV_STATE=dev
+```
 
 Run the below command to start the service
 
