@@ -43,11 +43,11 @@ docker-compose -f .\docker-compose.test.yml up --remove-orphans --exit-code-from
 
 ### Unit test report
 
-[![](img/unitTest.png)]()
+![unit test](img/unitTest.png)
 
 ### Code Coverage report
 
-[![](img/codeCoverage.PNG)]()
+![code coverage](img/codeCoverage.PNG)
 
 
 ## Load testing 
@@ -62,7 +62,7 @@ locust -f ./loadtest/locustfile.py
 
 ```
 
-[![](img/loadtest.PNG)]()
+![load test](img/loadtest.PNG)
 
 
 
