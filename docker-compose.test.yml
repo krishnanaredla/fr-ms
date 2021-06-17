@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  fileregistertest:
+    build :  
+      context : .
+      dockerfile : ./Dockerfile.test
+    command : pytest --cov-report html --cov=app  --html=Reports/pytest.html 
+    ports:
+      - 80:80
+    environment:
+      - ENV_STATE=test
+      - TEST_DB_USER=postgres
+      - TEST_DB_PASS=admin
+    volumes: 
+      - .testreports/reports:/app/Reports
+      - .testreports/cov:/app/htmlcov
+    depends_on:
+      db :
+        condition: service_healthy
+    
+
+  db:
+    image: postgres:13.0-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=microservices
+    expose: 
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+

@@ -1,0 +1,14 @@
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim as base 
+
+COPY ./app ./app
+
+COPY ./config ./config 
+
+COPY ./tests ./tests
+
+COPY requirements_dev.txt requirements.txt
+
+RUN pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
+
+
+
