@@ -30,6 +30,8 @@ class GlobalConfig(BaseSettings):
     DB_HOST: str = None
     DB_PORT: str = None
     DB_DATABASE: str = None
+    SNS_TARGET_ARN : str = None
+    
 
     class Config:
         """

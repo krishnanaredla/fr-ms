@@ -22,10 +22,14 @@ invalid_data = {
 def test_validData(test_app):
     response = test_app.post("/api/v1/fileregister/", json=valid_data)
     assert response.status_code == 201
-    assert response.json() == {
+    returnData = response.json()
+    del returnData['id']['file_process_id']
+    assert returnData == {
         "Status": "Success",
-        "id": {"file_process_id": 1, "step_id": 1},
+        "Message": "Inserted into DB",
+        "id": {"step_id": 1},
     }
+
 
 
 def test_validRecord(test_app):
@@ -50,15 +54,25 @@ def test_validStep(test_app):
     returnData = response.json()
     del returnData[0]["create_ts"]
     del returnData[0]["step_start_ts"]
+    del returnData[0]["file_process_id"]
+    del returnData[0]["step_end_ts"]
     assert response.status_code == 200
-    assert returnData[0] == {
-        "file_process_id": 1,
-        "step_name": "Preprocessor",
-        "step_status": "Initiated",
-        "step_end_ts": None,
+    assert returnData == {
+        "step_name": "File Registration",
+        "step_status": "DONE",
         "create_by": "FileRegisterMS",
     }
 
+def test_repeatedData(test_app):
+    response = test_app.post("/api/v1/fileregister/", json=valid_data)
+    assert response.status_code == 201
+    returnData = response.json()
+    del returnData['id']['file_process_id']
+    assert returnData == {
+        "Status": "Failure",
+        "Message": "File already exists",
+        "id": {"step_id": 2},
+    }
 
 def test_invalidData(test_app):
     """

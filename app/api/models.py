@@ -23,9 +23,10 @@ class FileProcessLog(BaseInfo):
 
 
 class FileProcessStepLog(BaseModel):
-    file_process_id: int
+    file_process_id: str
     step_name: str
     step_status: str
+    step_status_detail : str
     step_start_ts: datetime
     step_end_ts: Optional[datetime]
     create_by: str
