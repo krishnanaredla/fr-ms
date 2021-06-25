@@ -37,7 +37,7 @@ environment:
 Run the below command to start the service
 
 ```console
-docker-compose -f .\docker-compose.test.yml up --remove-orphans --exit-code-from fileregister ; docker-compose -f .\docker-compose.test.yml down --rmi local
+docker-compose -f .\docker-compose.local.yml up --remove-orphans --exit-code-from fileregister ; docker-compose -f .\docker-compose.local.yml down --rmi local
 ```
 
 ## Running Unit Tests
