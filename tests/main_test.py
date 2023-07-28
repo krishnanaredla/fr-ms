@@ -38,7 +38,7 @@ def test_validRecord(test_app):
     del returnData[0]["create_ts"]
     assert response.status_code == 200
     assert returnData[0] == {
-        "filename": "wildflower/WFH_BCBSNC_RegistrationDetail_SRC_20190430.zip",
+        "filename": "wildflower/WFH_alpha_RegistrationDetail_SRC_20190430.zip",
         "source_ip": "10.11.12.13",
         "file_size": 1153434,
         "bucket_name": "alpha-dna-dl-sandbox-landing-us-east-1",
