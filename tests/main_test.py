@@ -1,5 +1,5 @@
 valid_data = {
-    "filename": "wildflower/WFH_BCBSNC_RegistrationDetail_SRC_20190430.zip",
+    "filename": "wildflower/WFH_ALPHA_RegistrationDetail_SRC_20190430.zip",
     "source_ip": "10.11.12.13",
     "file_size": 1153434,
     "bucket_name": "bcbsnc-dna-dl-sandbox-landing-us-east-1",
@@ -9,7 +9,7 @@ valid_data = {
 }
 
 invalid_data = {
-    "filename": "wildflower/WFH_BCBSNC_RegistrationDetail_SRC_20190430.zip",
+    "filename": "wildflower/WFH_ALPHA_RegistrationDetail_SRC_20190430.zip",
     "source_ip": "10.11.12.13",
     "file_size": "1153434",
     "bucket_name": "bcbsnc-dna-dl-sandbox-landing-us-east-1",
@@ -41,7 +41,7 @@ def test_validRecord(test_app):
         "filename": "wildflower/WFH_BCBSNC_RegistrationDetail_SRC_20190430.zip",
         "source_ip": "10.11.12.13",
         "file_size": 1153434,
-        "bucket_name": "bcbsnc-dna-dl-sandbox-landing-us-east-1",
+        "bucket_name": "alpha-dna-dl-sandbox-landing-us-east-1",
         "event_name": "ObjectCreated:Put",
         "event_ts": "2021-01-11T10:34:11",
         "fp_id": 351,
