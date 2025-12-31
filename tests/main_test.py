@@ -57,9 +57,11 @@ def test_validStep(test_app):
     del returnData[0]["file_process_id"]
     del returnData[0]["step_end_ts"]
     assert response.status_code == 200
-    assert returnData == {
+    assert returnData[0] == {
+        "step_id": 1,
         "step_name": "File Registration",
         "step_status": "DONE",
+        "step_status_detail": "Completed Successfully",
         "create_by": "FileRegisterMS",
     }
 
