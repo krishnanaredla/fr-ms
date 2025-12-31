@@ -30,7 +30,9 @@ class GlobalConfig(BaseSettings):
     DB_HOST: str = None
     DB_PORT: str = None
     DB_DATABASE: str = None
-    SNS_TARGET_ARN : str = None
+    SNS_TARGET_ARN: str = None
+    SNS_ENDPOINT_URL: str = "http://localhost:4566"
+    SNS_REGION_NAME: str = "us-east-1"
     
 
     class Config:
@@ -42,28 +44,39 @@ class GlobalConfig(BaseSettings):
 
 
 class TestConfig(GlobalConfig):
-    """"""
+    """Test environment configuration with TEST_ prefix."""
 
     class Config:
         env_prefix: str = "TEST_"
 
 
 class DevConfig(GlobalConfig):
+    """Development environment configuration with DEV_ prefix."""
     class Config:
         env_prefix: str = "DEV_"
 
 
 class ProdConfig(GlobalConfig):
+    """Production environment configuration with PROD_ prefix."""
     class Config:
         env_prefix: str = "PROD_"
 
 
 class RunConfig:
+    """
+    Configuration factory that returns the appropriate config based on environment state.
+    """
     def __init__(self, env_state: Optional[str], env_loc: Optional[str] = ".env"):
         self.env_state = env_state
         self.env_loc = env_loc
 
     def __call__(self):
+        """
+        Returns the appropriate configuration instance based on environment state.
+        
+        Returns:
+            Configuration instance (DevConfig, TestConfig, or ProdConfig)
+        """
         if self.env_state == "dev":
             return DevConfig(_env_file=self.env_loc)
         if self.env_state == "test":
@@ -73,6 +86,15 @@ class RunConfig:
 
 
 def getConfig(env_loc: Optional[str] = "config/.env") -> BaseSettings:
+    """
+    Get the configuration instance based on the current environment.
+    
+    Args:
+        env_loc: Path to the .env file (default: "config/.env")
+        
+    Returns:
+        BaseSettings: Configuration instance for the current environment
+    """
     if os.environ.get("envPath", None):
         envPath = os.environ.get("envPath")
     else:
