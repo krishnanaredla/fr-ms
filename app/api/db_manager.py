@@ -1,5 +1,6 @@
 from app.api.models import RegisterFileInfo, FileProcessLog, FileProcessStepLog
 from app.api.db import database, file_process_log, file_process_step_log
+from sqlalchemy import text
 
 
 async def add_file_process_log(payload: FileProcessLog):
@@ -40,7 +41,6 @@ async def check_if_file_exists(file_hash: str):
     Returns:
         bool: True if file exists, False otherwise
     """
-    from sqlalchemy import text
     query = text(
         "select exists(select 1 from file_process_log where file_hash = :file_hash)"
     )

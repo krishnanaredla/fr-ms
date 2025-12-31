@@ -18,8 +18,9 @@ import logging
 from app.api.settings import getConfig
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+if not logger.handlers:
+    logging.basicConfig(level=logging.INFO)
 
 cnf = getConfig()
 filesregister = APIRouter()
@@ -119,7 +120,7 @@ async def postData(payload: RegisterFileInfo):
                 )
                 logger.info(f"SNS notification sent for duplicate file: {data.get('filename')}")
             except Exception as e:
-                logger.error(f"Failed to send SNS notification: {str(e)}")
+                logger.error(f"Failed to send SNS notification: {e}")
         data.update({"event_ts": payload.dict().get("event_ts").replace(tzinfo=None)})
         filepayload = {
             **data,
@@ -149,7 +150,7 @@ async def postData(payload: RegisterFileInfo):
             "id": {"file_process_id": file_process_id, "step_id": step_id},
         }
     except Exception as e:
-        logger.error(f"File registration failed: {str(e)}")
+        logger.error(f"File registration failed: {e}")
         message = {"message": "Processing failed with error : {0}".format(e)}
         try:
             client = getSNSClient()
@@ -161,5 +162,5 @@ async def postData(payload: RegisterFileInfo):
             )
             logger.info("SNS error notification sent")
         except Exception as sns_error:
-            logger.error(f"Failed to send SNS error notification: {str(sns_error)}")
-        raise HTTPException(status_code=500, detail=f"Processing failed: {str(e)}")
+            logger.error(f"Failed to send SNS error notification: {sns_error}")
+        raise HTTPException(status_code=500, detail=f"Processing failed: {e}")
